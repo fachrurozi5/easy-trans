@@ -1,0 +1,83 @@
+<resources>
+
+    <string-array name="operator_array">
+        <item>TELKOMSEL</item>
+    </string-array>
+
+    <string-array name="denom_pulsa_array">
+        <item>5,000</item>
+        <item>10,000</item>
+        <item>20,000</item>
+        <item>25,000</item>
+        <item>50,000</item>
+        <item>100,000</item>
+    </string-array>
+
+    <integer-array name="harga_pulsa_array">
+        <item>5000</item>
+        <item>10000</item>
+        <item>20000</item>
+        <item>25000</item>
+        <item>50000</item>
+        <item>100000</item>
+    </integer-array>
+
+    <string-array name="data_pulsa_array">
+        <item>512 MB</item>
+        <item>1 GB</item>
+        <item>2 GB</item>
+        <item>3 GB</item>
+        <item>5 GB</item>
+        <item>10 GB</item>
+    </string-array>
+
+    <string-array name="bank_array">
+        <item>BCA</item>
+        <item>BNI</item>
+        <item>BRI</item>
+        <item>MANDIRI</item>
+        <item>CIMB</item>
+    </string-array>
+
+    <integer-array name="d_pulsa_array">
+        <item>20000</item>
+        <item>50000</item>
+        <item>100000</item>
+        <item>150000</item>
+        <item>200000</item>
+        <item>300000</item>
+        <item>500000</item>
+        <item>1000000</item>
+    </integer-array>
+
+    <string-array name="nama_array">
+        <item>Sandi Khusuma</item>
+        <item>Mirna Zulianti</item>
+        <item>Kazman Suaep</item>
+        <item>Bayu Irawan</item>
+        <item>Desy Komala Sari</item>
+        <item>Arya Budi</item>
+    </string-array>
+
+    <string-array name="nomor_array">
+        <item>081265894551</item>
+        <item>081256647893</item>
+        <item>081269745533</item>
+        <item>081259978411</item>
+        <item>081256945527</item>
+        <item>081294621331</item>
+    </string-array>
+
+    <string name="app_name">Easy Trans</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main2"><i>EasyTrans</i></string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_pembelian_pulsa"><i>EasyTrans</i></string>
+    <string name="title_activity_pembelian"><i>EasyTrans</i></string>
+    <string name="title_activity_voucher"><i>EasyTrans</i></string>
+    <string name="title_activity_bank"><i>EasyTrans</i></string>
+    <string name="title_activity_pembelian_data"><i>EasyTrans</i></string>
+    <string name="title_activity_transfer_deposit"><i>EasyTrans</i></string>
+</resources>
