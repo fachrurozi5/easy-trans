@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.fachru.myapplication"
+          xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".MenuActivity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PembelianPulsaActivity"
+            android:label="@string/title_activity_pembelian_pulsa"
+            android:parentActivityName=".PembelianActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <service android:name=".service.DateTimeService"/>
+
+        <activity
+            android:name=".PembelianActivity"
+            android:label="@string/title_activity_pembelian"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".VoucherActivity"
+            android:label="@string/title_activity_voucher"
+            android:parentActivityName=".PembelianActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fachru.myapplication.MainActivity"/>
+        </activity>
+        <activity
+            android:name=".BankActivity"
+            android:label="@string/title_activity_bank"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".PembelianDataActivity"
+            android:label="@string/title_activity_pembelian_data"
+            android:parentActivityName=".PembelianActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".TransferDepositActivity"
+            android:label="@string/title_activity_transfer_deposit"
+            android:parentActivityName=".MenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fachru.myapplication.MenuActivity"/>
+        </activity>
+    </application>
+
+</manifest>
