@@ -34,7 +34,6 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
 
         denom_pulsa_array = getResources().getIntArray(R.array.harga_pulsa_array);
 
-//        sp_operator = (AppCompatSpinner) findViewById(R.id.sp_operator);
         sp_denom_pulsa = (AppCompatSpinner) findViewById(R.id.sp_denom_pulsa);
         tv_haga = (TextView) findViewById(R.id.tv_nominal);
 
@@ -44,7 +43,6 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
         adapterOperator.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         adapterDenomPulsa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-//        sp_operator.setAdapter(adapterOperator);
         sp_denom_pulsa.setAdapter(adapterDenomPulsa);
 
         sp_denom_pulsa.setOnItemSelectedListener(this);
