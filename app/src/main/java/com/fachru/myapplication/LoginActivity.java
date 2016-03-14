@@ -1,6 +1,11 @@
 package com.fachru.myapplication;
 
+import android.content.Context;
+import android.os.Build;
+import android.support.v7.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
@@ -21,24 +26,35 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fachru.myapplication.model.User;
 import com.fachru.myapplication.utils.Constanta;
+import com.fachru.myapplication.utils.SessionManager;
+import com.google.gson.Gson;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<String>, Response.ErrorListener{
 
+    private SessionManager session;
+    private Context context = this;
+    private Gson gson;
+
     // widget
     private EditText input_phone_number, input_pin;
     private AppCompatButton button_login;
-
     private ProgressDialog progressDialog;
+    private AlertDialog.Builder builder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        session = new SessionManager(context);
+        gson = new Gson();
         init_comp();
+
+        input_phone_number.setText(session.get_phone_number());
 
         button_login.setOnClickListener(this);
 
@@ -53,6 +69,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
+
+        builder = new AlertDialog.Builder(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setIcon(getDrawable(R.drawable.icon));
+        } else {
+            builder.setIcon(getResources().getDrawable(R.drawable.icon));
+        }
+        builder.setTitle("Login Error");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                input_pin.getText().clear();
+            }
+        });
+
     }
 
     @Override
@@ -75,7 +106,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, this, this) {
             @Override
             protected Response<String> parseNetworkResponse(NetworkResponse response) {
-                Log.i(Constanta.TAG, response.toString());
                 Log.i(Constanta.TAG, response.headers.toString());
                 return super.parseNetworkResponse(response);
             }
@@ -96,26 +126,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.e(Constanta.TAG, "VolleyError ", error);
+        Log.e(Constanta.TAG, "VolleyError " + error.networkResponse.statusCode);
 
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            Log.e(Constanta.TAG, "TimeoutError");
+            builder.setMessage("Timeout");
         } else if (error instanceof AuthFailureError) {
-            Log.e(Constanta.TAG, "AuthFailureError");
+            builder.setMessage("Auth Failure");
         } else if (error instanceof ServerError) {
-            Log.e(Constanta.TAG, "ServerError");
+            builder.setMessage("Server Error");
         } else if (error instanceof NetworkError) {
-            Log.e(Constanta.TAG, "NetworkError");
+            builder.setMessage("Network Error");
         } else if (error instanceof ParseError) {
-            Log.e(Constanta.TAG, "ParseError");
+            builder.setMessage("Parse Error");
+        } else {
+            builder.setMessage("Error");
         }
 
         progressDialog.dismiss();
+
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+
     }
 
     @Override
     public void onResponse(String response) {
-        Log.i(Constanta.TAG, response);
+
+        User user = gson.fromJson(response, User.class);
+        session.set_phone_number(user.custid);
+        user.save();
+
         progressDialog.dismiss();
+
+        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+        finish();
     }
 }

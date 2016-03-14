@@ -81,5 +81,5 @@
     <string name="title_activity_pembelian_data"><i>EasyTrans</i></string>
     <string name="title_activity_transfer_deposit"><i>EasyTrans</i></string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login">EasyTrans</string>
 </resources>
