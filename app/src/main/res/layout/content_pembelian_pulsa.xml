@@ -90,7 +90,8 @@
             android:layout_gravity="center_horizontal"
             android:background="@drawable/button_add"
             android:textColor="@android:color/white"
-            android:text="Submit"/>
+            android:text="Submit"
+            android:onClick="submit"/>
 
     </LinearLayout>
 

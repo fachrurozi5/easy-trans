@@ -7,29 +7,36 @@ import java.util.Date;
  */
 public class InboxTodo {
 
-    public Date dtr = new Date();
-    public Date dtp = new Date();
-    public String fromHp = "081291263503";
-    public String fromName = "Arief Fachru Rozi";
-    public String message = "TS5.081291263503.1111";
-    public String mode = "sms";
-    public boolean blockStatus = false;
-    public String transmisiHp = "TS5.081291263503.????";
-    public String comPort = "3";
-    public String userId = "-";
-    public String xStatus = "VCH";
-    public String docno = "-";
-    public String jobId = "-";
-    public double idx;
-    public int jobProsesId=0;
-    public String jamHp = "-";
-    public String csstatid1 = "9999";
-    public String csstatid4 = "99";
-    public String h2h = "-";
-    public String pesan2 = "-";
+    private Date dtr = new Date();
+    private Date dtp = new Date();
+    private String fromHp = "081291263503";
+    private String fromName = "Arief Fachru Rozi";
+    private String message;
+    private String mode = "sms";
+    private boolean blockStatus = false;
+    private String transmisiHp;
+    private String comPort = "3";
+    private String userId = "-";
+    private String xStatus = "VCH";
+    private String docno = "-";
+    private String jobId = "-";
+    private double idx;
+    private int jobProsesId=0;
+    private String jamHp = "-";
+    private String csstatid1 = "9999";
+    private String csstatid4 = "99";
+    private String h2h = "-";
+    private String pesan2 = "-";
 
     public InboxTodo() {
 
+    }
+
+    public InboxTodo(String prodid, String no_tujuan, User user) {
+        fromHp = user.custid;
+        fromName = user.custname;
+        message = String.format("%s.%s.%s", prodid, no_tujuan, user.pin);
+        transmisiHp = String.format("%s.%s.???", prodid, no_tujuan);
     }
 
     @Override

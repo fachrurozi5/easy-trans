@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
+import com.activeandroid.ActiveAndroid;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
@@ -26,12 +27,18 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.fachru.myapplication.model.Product;
 import com.fachru.myapplication.model.User;
 import com.fachru.myapplication.utils.Constanta;
 import com.fachru.myapplication.utils.SessionManager;
+import com.fachru.myapplication.utils.VolleyErrorHelper;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<String>, Response.ErrorListener{
@@ -101,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void requestToServer(final String phone_number, final String pin) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.112/reload-manager/login";
+        String url ="http://192.168.0.107/reload-manager/login";
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, this, this) {
             @Override
@@ -120,27 +127,65 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         };
 
         progressDialog.show();
+        progressDialog.setMessage("Authenticating...");
+
+        queue.add(stringRequest);
+    }
+
+    private void RequestToServer() {
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+        String url ="http://192.168.0.107/reload-manager/product";
+
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Type token = new TypeToken<List<Product>>() {}.getType();
+                List<Product> products = gson.fromJson(response, token);
+
+                ActiveAndroid.beginTransaction();
+                try {
+                    for (Product product : products)
+                        product.save();
+
+                    ActiveAndroid.setTransactionSuccessful();
+                }
+                finally {
+                    ActiveAndroid.endTransaction();
+                }
+
+                startActivity(new Intent(getApplicationContext(), MenuActivity.class));
+                finish();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                builder.setMessage(VolleyErrorHelper.getMessage(error, context));
+
+                progressDialog.dismiss();
+
+                AlertDialog dialog = builder.create();
+
+                dialog.show();
+            }
+        }) {
+            @Override
+            protected Response<String> parseNetworkResponse(NetworkResponse response) {
+                Log.i(Constanta.TAG, response.headers.toString());
+                return super.parseNetworkResponse(response);
+            }
+        };
+
+        progressDialog.show();
+        progressDialog.setMessage("Get Product...");
 
         queue.add(stringRequest);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        Log.e(Constanta.TAG, "VolleyError " + error.networkResponse.statusCode);
 
-        if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            builder.setMessage("Timeout");
-        } else if (error instanceof AuthFailureError) {
-            builder.setMessage("Auth Failure");
-        } else if (error instanceof ServerError) {
-            builder.setMessage("Server Error");
-        } else if (error instanceof NetworkError) {
-            builder.setMessage("Network Error");
-        } else if (error instanceof ParseError) {
-            builder.setMessage("Parse Error");
-        } else {
-            builder.setMessage("Error");
-        }
+        builder.setMessage(VolleyErrorHelper.getMessage(error, ApplicationController.getAppContext()));
 
         progressDialog.dismiss();
 
@@ -159,7 +204,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         progressDialog.dismiss();
 
-        startActivity(new Intent(getApplicationContext(), MenuActivity.class));
-        finish();
+        RequestToServer();
     }
 }

@@ -82,4 +82,7 @@
     <string name="title_activity_transfer_deposit"><i>EasyTrans</i></string>
     <string name="title_activity_test">TestActivity</string>
     <string name="title_activity_login">EasyTrans</string>
+    <string name="generic_server_down">Server tidak menjawab</string>
+    <string name="no_internet">No Internet</string>
+    <string name="generic_error">Fatal Error</string>
 </resources>

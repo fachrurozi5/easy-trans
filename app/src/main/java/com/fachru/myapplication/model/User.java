@@ -3,6 +3,7 @@ package com.fachru.myapplication.model;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
+import com.activeandroid.query.Select;
 
 /**
  * Created by fachru on 14/03/16.
@@ -28,8 +29,18 @@ public class User extends Model{
     @Column(name = "deposit")
     public double deposit;
 
+    @Column(name = "levelprcid")
+    public String levelprcid;
+
     public User() {
 
+    }
+
+    public static User find(String custid) {
+        return new Select()
+                .from(User.class)
+                .where("custid =?", custid)
+                .executeSingle();
     }
 
     @Override
@@ -41,6 +52,7 @@ public class User extends Model{
                 ", tipe='" + tipe + '\'' +
                 ", pin='" + pin + '\'' +
                 ", deposit=" + deposit +
+                ", levelprcid='" + levelprcid + '\'' +
                 '}';
     }
 }

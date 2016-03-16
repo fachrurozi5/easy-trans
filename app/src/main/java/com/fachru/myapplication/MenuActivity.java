@@ -18,16 +18,21 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fachru.myapplication.model.User;
 import com.fachru.myapplication.service.DateTimeService;
 import com.fachru.myapplication.utils.Constanta;
+import com.fachru.myapplication.utils.SessionManager;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView tv_date;
+    private TextView tv_date;
+    private SessionManager session;
 
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
@@ -50,10 +55,19 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        session = new SessionManager(this);
+        User user = User.find(session.get_phone_number());
+        DecimalFormat decimalFormat = new DecimalFormat("#,##0");
+
+        String deposit = decimalFormat.format(user.deposit);
 
         tv_date = (TextView) findViewById(R.id.tv_date);
+        TextView tv_name_phone_number = (TextView) findViewById(R.id.tv_name_phone_number);
+        TextView tv_saldo_deposit = (TextView) findViewById(R.id.tv_saldo_deposit);
 
-        tv_date.setText(new SimpleDateFormat("dd-MM-yyyy hh:mm:ss").format(new Date()));
+        tv_date.setText(new SimpleDateFormat("dd-MM-yyyy hh:mm:ss", Locale.getDefault()).format(new Date()));
+        tv_name_phone_number.setText(user.custname + " - " + user.custid);
+        tv_saldo_deposit.setText("Saldo Deposit Rp." + deposit);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
