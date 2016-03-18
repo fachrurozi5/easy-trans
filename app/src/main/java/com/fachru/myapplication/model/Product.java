@@ -32,13 +32,13 @@ public class Product extends Model{
 
 
     public Product() {
-
+        super();
     }
 
-    public static Product find(String custid) {
+    public static Product find(String prodid) {
         return new Select()
                 .from(Product.class)
-                .where("prodid =?", custid)
+                .where("prodid =?", prodid)
                 .executeSingle();
     }
 

@@ -41,7 +41,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, Response.Listener<String>, Response.ErrorListener{
+public class LoginActivity extends AppCompatActivity implements /*View.OnClickListener,*/ Response.Listener<String>, Response.ErrorListener{
 
     private SessionManager session;
     private Context context = this;
@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     // widget
     private EditText input_phone_number, input_pin;
-    private AppCompatButton button_login;
+    /*private AppCompatButton button_login;*/
     private ProgressDialog progressDialog;
     private AlertDialog.Builder builder;
 
@@ -63,14 +63,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         input_phone_number.setText(session.get_phone_number());
 
-        button_login.setOnClickListener(this);
+        /*button_login.setOnClickListener(this);*/
 
     }
 
     private void init_comp() {
         input_phone_number = (EditText) findViewById(R.id.input_nomor);
         input_pin = (EditText) findViewById(R.id.input_pin);
-        button_login = (AppCompatButton) findViewById(R.id.btn_login);
+        /*button_login = (AppCompatButton) findViewById(R.id.btn_login);*/
 
         progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
@@ -79,9 +79,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         builder = new AlertDialog.Builder(LoginActivity.this, R.style.AppTheme_Dark_Dialog);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setIcon(getDrawable(R.drawable.icon));
+            builder.setIcon(getDrawable(R.drawable.logo_large));
         } else {
-            builder.setIcon(getResources().getDrawable(R.drawable.icon));
+            builder.setIcon(getResources().getDrawable(R.drawable.logo_large));
         }
         builder.setTitle("Login Error");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    @Override
     public void onClick(View v) {
 
         if (input_phone_number.getText().toString().equals(""))

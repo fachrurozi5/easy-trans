@@ -34,6 +34,7 @@ import com.android.volley.toolbox.Volley;
 import com.fachru.myapplication.model.InboxTodo;
 import com.fachru.myapplication.model.Product;
 import com.fachru.myapplication.model.User;
+import com.fachru.myapplication.service.CheckTransactionService;
 import com.fachru.myapplication.utils.Constanta;
 import com.fachru.myapplication.utils.SessionManager;
 import com.fachru.myapplication.utils.VolleyErrorHelper;
@@ -64,6 +65,7 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
 
     private Product product;
 
+    private InboxTodo todo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,8 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
         session = new SessionManager(this);
 
         gson = new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                .excludeFieldsWithoutExposeAnnotation().create();
 
         if (Product.find().size() > 0)
             products = Product.find();
@@ -102,9 +105,9 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
 
         builder = new AlertDialog.Builder(PembelianPulsaActivity.this, R.style.AppTheme_Dark_Dialog);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            builder.setIcon(getDrawable(R.drawable.icon));
+            builder.setIcon(getDrawable(R.drawable.logo_large));
         } else {
-            builder.setIcon(getResources().getDrawable(R.drawable.icon));
+            builder.setIcon(getResources().getDrawable(R.drawable.logo_large));
         }
         builder.setTitle("Informasi");
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -115,6 +118,8 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
         });
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,9 +198,13 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
     public void onResponse(String response) {
         Log.e(Constanta.TAG, "OnResponse : " + response);
 
+        todo.save();
+
+        todo = null;
+
         progressDialog.dismiss();
 
-        builder.setMessage("Pembelian pulsa berhasil");
+        builder.setMessage("Pembelian pulsa sedang diperoses");
         AlertDialog dialog = builder.create();
 
         dialog.show();
@@ -208,7 +217,7 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
         if (nomor_tujuan.equals("")) {
             et_nomor_tujuan.setError("Mohon isi nomor tujuan");
         } else {
-            InboxTodo todo = new InboxTodo(product.prodid, nomor_tujuan, User.find(session.get_phone_number()));
+            todo = new InboxTodo(product.prodid, nomor_tujuan, User.find(session.get_phone_number()));
             Map<String, String> objectMap;objectMap = gson.fromJson(
                     gson.toJson(todo),
                     new TypeToken<HashMap<String, String>>() {}.getType()

@@ -14,6 +14,12 @@ public class User extends Model{
     @Column(name = "custid", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     public String custid;
 
+    @Column(name = "cabang")
+    public String cabang;
+
+    @Column(name = "wilayah")
+    public String wilayah;
+
     @Column(name = "custname")
     public String custname;
 
@@ -29,11 +35,11 @@ public class User extends Model{
     @Column(name = "deposit")
     public double deposit;
 
-    @Column(name = "levelprcid")
-    public String levelprcid;
+    @Column(name = "level")
+    public String level;
 
     public User() {
-
+        super();
     }
 
     public static User find(String custid) {
@@ -47,12 +53,14 @@ public class User extends Model{
     public String toString() {
         return "User{" +
                 "custid='" + custid + '\'' +
+                ", cabang='" + cabang + '\'' +
+                ", wilayah='" + wilayah + '\'' +
                 ", custname='" + custname + '\'' +
                 ", tingkat='" + tingkat + '\'' +
                 ", tipe='" + tipe + '\'' +
                 ", pin='" + pin + '\'' +
                 ", deposit=" + deposit +
-                ", levelprcid='" + levelprcid + '\'' +
+                ", level='" + level + '\'' +
                 '}';
     }
 }

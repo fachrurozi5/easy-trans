@@ -12,11 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <service android:name=".service.DateTimeService"/>
+        <service android:name=".service.CheckTransactionService"/>
+
         <meta-data android:name="AA_DB_NAME" android:value="easy-trans.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
         <meta-data
             android:name="AA_MODELS"
-            android:value="com.fachru.myapplication.model.User,com.fachru.myapplication.model.Product" />
+            android:value="com.fachru.myapplication.model.User,com.fachru.myapplication.model.Product,com.fachru.myapplication.model.InboxTodo" />
 
         <activity
             android:name=".MainActivity"
@@ -34,9 +37,6 @@
             android:parentActivityName=".PembelianActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
-        <service android:name=".service.DateTimeService"/>
-
         <activity
             android:name=".PembelianActivity"
             android:label="@string/title_activity_pembelian"

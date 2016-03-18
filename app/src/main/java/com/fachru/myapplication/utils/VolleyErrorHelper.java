@@ -75,6 +75,7 @@ public class VolleyErrorHelper {
         if (response != null) {
             switch (response.statusCode) {
                 case 404:
+                    return "Page not found";
                 case 422:
                 case 401:
                     try {

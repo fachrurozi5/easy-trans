@@ -12,13 +12,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fachru.myapplication.model.InboxTodo;
 import com.fachru.myapplication.model.User;
+import com.fachru.myapplication.service.CheckTransactionService;
 import com.fachru.myapplication.service.DateTimeService;
 import com.fachru.myapplication.utils.Constanta;
 import com.fachru.myapplication.utils.SessionManager;
@@ -79,6 +82,18 @@ public class MenuActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         startService(new Intent(getApplicationContext(), DateTimeService.class));
+
+        Log.d(Constanta.TAG,"Status : " + InboxTodo.hasStatusVCH());
+
+        for (InboxTodo todo : InboxTodo.getStatusVCH())
+            Log.d(Constanta.TAG, todo.toString());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = new Intent(this, CheckTransactionService.class);
+        startService(intent);
     }
 
     @Override
