@@ -74,14 +74,14 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="title_activity_pembelian_pulsa"><i>EasyTrans</i></string>
-    <string name="title_activity_pembelian"><i>EasyTrans</i></string>
-    <string name="title_activity_voucher"><i>EasyTrans</i></string>
-    <string name="title_activity_bank"><i>EasyTrans</i></string>
-    <string name="title_activity_pembelian_data"><i>EasyTrans</i></string>
-    <string name="title_activity_transfer_deposit"><i>EasyTrans</i></string>
+    <string name="title_activity_pembelian_pulsa"><i>Easy Trans</i></string>
+    <string name="title_activity_pembelian"><i>Easy Trans</i></string>
+    <string name="title_activity_voucher"><i>Easy Trans</i></string>
+    <string name="title_activity_bank"><i>Easy Trans</i></string>
+    <string name="title_activity_pembelian_data"><i>Easy Trans</i></string>
+    <string name="title_activity_transfer_deposit"><i>Easy Trans</i></string>
     <string name="title_activity_test">TestActivity</string>
-    <string name="title_activity_login">EasyTrans</string>
+    <string name="title_activity_login">Easy Trans</string>
     <string name="generic_server_down">Server tidak menjawab</string>
     <string name="no_internet">No Internet</string>
     <string name="generic_error">Fatal Error</string>

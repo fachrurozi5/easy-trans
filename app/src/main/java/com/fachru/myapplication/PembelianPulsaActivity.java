@@ -160,7 +160,8 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
 
     private void requestToServer(final Map<String, String> map) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.107/reload-manager/inbox/store";
+//        String url ="http://192.168.0.107/reload-manager/inbox/store";
+        String url = String.format("%s/inbox/store", Constanta.BASE_URL);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, this, this) {
             @Override
@@ -176,7 +177,7 @@ public class PembelianPulsaActivity extends AppCompatActivity implements Adapter
             }
         };
 
-        progressDialog.setMessage("Mohong Tunggu...");
+        progressDialog.setMessage("Mohong Tunggu");
         progressDialog.show();
 
         queue.add(stringRequest);

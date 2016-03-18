@@ -34,6 +34,7 @@ import com.fachru.myapplication.utils.SessionManager;
 import com.fachru.myapplication.utils.VolleyErrorHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.lang.reflect.Type;
 import java.util.Collection;
@@ -41,15 +42,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity implements /*View.OnClickListener,*/ Response.Listener<String>, Response.ErrorListener{
+public class LoginActivity extends AppCompatActivity implements Response.Listener<String>, Response.ErrorListener{
 
     private SessionManager session;
     private Context context = this;
     private Gson gson;
 
     // widget
-    private EditText input_phone_number, input_pin;
-    /*private AppCompatButton button_login;*/
+    private EditText /*input_phone_number,*/ input_pin;
+    private MaterialEditText input_phone_number;
     private ProgressDialog progressDialog;
     private AlertDialog.Builder builder;
 
@@ -61,16 +62,17 @@ public class LoginActivity extends AppCompatActivity implements /*View.OnClickLi
         gson = new Gson();
         init_comp();
 
+        /*input_phone_number.setText(session.get_phone_number());*/
+
         input_phone_number.setText(session.get_phone_number());
 
-        /*button_login.setOnClickListener(this);*/
 
     }
 
     private void init_comp() {
-        input_phone_number = (EditText) findViewById(R.id.input_nomor);
+        /*input_phone_number = (EditText) findViewById(R.id.input_nomor);*/
+        input_phone_number = (MaterialEditText) findViewById(R.id.input_nomor);
         input_pin = (EditText) findViewById(R.id.input_pin);
-        /*button_login = (AppCompatButton) findViewById(R.id.btn_login);*/
 
         progressDialog = new ProgressDialog(LoginActivity.this,
                 R.style.AppTheme_Dark_Dialog);
@@ -107,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements /*View.OnClickLi
 
     private void requestToServer(final String phone_number, final String pin) {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.107/reload-manager/login";
+        String url = String.format("%s/login", Constanta.BASE_URL);
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url, this, this) {
             @Override
@@ -126,14 +128,14 @@ public class LoginActivity extends AppCompatActivity implements /*View.OnClickLi
         };
 
         progressDialog.show();
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage("Authenticating");
 
         queue.add(stringRequest);
     }
 
     private void RequestToServer() {
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-        String url ="http://192.168.0.107/reload-manager/product";
+        String url = String.format("%s/product", Constanta.BASE_URL);
 
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -176,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements /*View.OnClickLi
         };
 
         progressDialog.show();
-        progressDialog.setMessage("Get Product...");
+        progressDialog.setMessage("Mendapatkan Produk.");
 
         queue.add(stringRequest);
     }

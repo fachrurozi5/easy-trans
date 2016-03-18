@@ -28,7 +28,30 @@
             android:layout_marginBottom="24dp"
             android:layout_gravity="center_horizontal" />
 
-        <android.support.design.widget.TextInputLayout
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/input_nomor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:inputType="phone"
+            android:hint="Nomor Telepon"
+            app:met_iconLeft="@drawable/ic_contact"
+            app:met_iconPadding="0dp"
+            app:met_maxCharacters="12"/>
+
+        <com.rengwuxian.materialedittext.MaterialEditText
+            android:id="@+id/input_pin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:inputType="numberPassword"
+            android:hint="PIN"
+            app:met_iconLeft="@drawable/ic_pin"
+            app:met_iconPadding="0dp"/>
+
+        <!--<android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -39,9 +62,9 @@
                 android:inputType="numberSigned"
                 android:textColorHint="#FFEBEE"
                 android:hint="Phone Number" />
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>-->
 
-        <android.support.design.widget.TextInputLayout
+        <!--<android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -51,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:hint="PIN"/>
-        </android.support.design.widget.TextInputLayout>
+        </android.support.design.widget.TextInputLayout>-->
 
         <TextView
             android:id="@+id/btn_login"

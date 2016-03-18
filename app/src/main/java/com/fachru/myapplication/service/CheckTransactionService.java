@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Handler;
 import android.os.IBinder;
@@ -137,27 +139,19 @@ public class CheckTransactionService extends Service{
         Intent intent = new Intent(context, LoginActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        /*String status;
-
-        if (inboxTodo.getStatus().equalsIgnoreCase("berhasil2"))
-            status = "Berhasil";
-        else if (inboxTodo.getStatus().equalsIgnoreCase("gagal2") ||
-                inboxTodo.getStatus().equalsIgnoreCase("gagal-b") ||
-                inboxTodo.getStatus().equalsIgnoreCase("gagal"))
-            status = "Gagal";
-        else
-            status = "Berhasil";*/
 
         String msg = String.format("Pembelian pulsa ke nomor %s dengan nominal %s telah %s", message[1], inboxTodo.getNominal(), inboxTodo._getStatus());
 
         Notification notification = new android.support.v7.app.NotificationCompat.Builder(context)
                 .setContentTitle("Easy Trans")
                 .setContentText(msg)
-                .setDefaults(Notification.DEFAULT_ALL) // requires VIBRATE permission
+                .setDefaults(Notification.DEFAULT_ALL)
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(msg))
                 .setSmallIcon(R.drawable.ic_stat_et)
-                .setColor(Color.parseColor("#FF0009"))
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo_large))
+                .setPriority(Notification.PRIORITY_MAX)
+                .setColor(Color.parseColor("#ffffff"))
                 .setContentIntent(pendingIntent)
                 .build();
 
